@@ -26,7 +26,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Value("${inputfile}")
     private String inputfile;
 
-    private final  Map<String, Map<String, Integer>> transactionFilePropertiesConfig;
+    private final Map<String, Map<String, Integer>> transactionFilePropertiesConfig;
 
     public TransactionsServiceImpl(TransactionFileConfigProperties transactionFileConfigProperties) {
         this.transactionFilePropertiesConfig = transactionFileConfigProperties.getIndexes();
@@ -34,7 +34,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
     @Override
     @Cacheable(value = "transactions")
-    public List<FutureTransaction> loadTransactions()  {
+    public List<FutureTransaction> loadTransactions() {
         try {
             List<String> transactions = Files.readAllLines(Paths.get(inputfile));
             return transactions.stream()
@@ -50,23 +50,23 @@ public class TransactionsServiceImpl implements TransactionsService {
 
     /**
      * Map a single row of transaction file to FutureTransaction class object
+     *
      * @return mapper function to process mapping a transaction row
      */
     private Function<String, FutureTransaction> mapTransactionFileRowToBean() {
-        return row -> {
-            FutureTransaction futureTransaction = new FutureTransaction();
-            futureTransaction.setClientType(getSubstringValue(row, CLIENT_TYPE));
-            futureTransaction.setClientNumber(getSubstringValue(row, CLIENT_NUMBER));
-            futureTransaction.setAccountNumber(getSubstringValue(row, ACCOUNT_NUMBER));
-            futureTransaction.setSubAccountNumber(getSubstringValue(row, SUB_ACCOUNT_NUMBER));
-            futureTransaction.setExchangeCode(getSubstringValue(row, EXCHANGE_CODE));
-            futureTransaction.setProductGroupCode(getSubstringValue(row, PRODUCT_GROUP_CODE));
-            futureTransaction.setSymbol(getSubstringValue(row, SYMBOL));
-            futureTransaction.setExpirationDate(LocalDate.parse(getSubstringValue(row, EXPIRATION_DATE), DateTimeFormatter.ofPattern(INPUT_FILE_DATE_FORMAT)));
-            futureTransaction.setQuantityLong(Integer.parseInt(getSubstringValue(row, QUANTITY_LONG)));
-            futureTransaction.setQuantityShort(Integer.parseInt(getSubstringValue(row, QUANTITY_SHORT)));
-            return futureTransaction;
-        };
+        return row ->
+            new FutureTransaction(
+                    getSubstringValue(row, CLIENT_TYPE),
+                    getSubstringValue(row, CLIENT_NUMBER),
+                    getSubstringValue(row, ACCOUNT_NUMBER),
+                    getSubstringValue(row, SUB_ACCOUNT_NUMBER),
+                    getSubstringValue(row, PRODUCT_GROUP_CODE),
+                    getSubstringValue(row, EXCHANGE_CODE),
+                    getSubstringValue(row, SYMBOL),
+                    Integer.parseInt(getSubstringValue(row, QUANTITY_LONG)),
+                    Integer.parseInt(getSubstringValue(row, QUANTITY_SHORT)),
+                    LocalDate.parse(getSubstringValue(row, EXPIRATION_DATE), DateTimeFormatter.ofPattern(INPUT_FILE_DATE_FORMAT))
+            );
     }
 
     private String getSubstringValue(String row, String configKey) {

@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 @Service
-public class TransactionReportServiceImpl implements TransactionReportService {
+public class TransactionsReportServiceImpl implements TransactionsReportService {
     private final TransactionsService transactionsService;
-    public TransactionReportServiceImpl(TransactionsService transactionsService) {
+    public TransactionsReportServiceImpl(TransactionsService transactionsService) {
         this.transactionsService = transactionsService;
     }
     @Override

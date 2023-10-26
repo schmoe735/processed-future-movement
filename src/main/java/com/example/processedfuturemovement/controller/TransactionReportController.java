@@ -1,7 +1,7 @@
 package com.example.processedfuturemovement.controller;
 
 import com.example.processedfuturemovement.exceptions.TransactionsUnavailableException;
-import com.example.processedfuturemovement.service.TransactionReportService;
+import com.example.processedfuturemovement.service.TransactionsReportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -21,9 +21,9 @@ import static com.example.processedfuturemovement.utils.Constants.OUTPUT_CSV;
 @RestController
 @RequestMapping("/api/v1/report")
 public class TransactionReportController {
-    final TransactionReportService transactionReportService;
-    public TransactionReportController(TransactionReportService transactionReportService) {
-        this.transactionReportService = transactionReportService;
+    final TransactionsReportService transactionsReportService;
+    public TransactionReportController(TransactionsReportService transactionsReportService) {
+        this.transactionsReportService = transactionsReportService;
     }
 
     /**
@@ -34,7 +34,7 @@ public class TransactionReportController {
      */
     @GetMapping("/daily-summary/{clientNumber}")
     public ResponseEntity<Resource> getFile(@PathVariable("clientNumber") String clientNumber)  {
-        ByteArrayInputStream csvOutput = transactionReportService.generateReport(clientNumber);
+        ByteArrayInputStream csvOutput = transactionsReportService.generateReport(clientNumber);
         if (csvOutput == null) throw new TransactionsUnavailableException("Transaction data unavailable");
 
         return ResponseEntity.ok()
