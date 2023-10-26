@@ -12,10 +12,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.processedfuturemovement.utils.Constants.CSV_HEADERS;
+
 public class CsvHelper {
 
+
     public static ByteArrayInputStream futureTransactionsToCSV(Map<DailyTransactionReportGroup, Integer> futureTransactions) {
-        final CSVFormat format = CSVFormat.DEFAULT.builder().setHeader("CLIENT TYPE", "CLIENT NUMBER", "ACCOUNT NUMBER", "SUBACCOUNT NUMBER", "EXCHANGE CODE", "PRODUCT GROUP CODE", "SYMBOL", "EXPIRATION DATE", "Total_Transaction_Amount").build();
+        final CSVFormat format = CSVFormat.DEFAULT.builder()
+                .setHeader(CSV_HEADERS)
+                .build();
 
         try (ByteArrayOutputStream out = new ByteArrayOutputStream();
              CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(out), format)) {

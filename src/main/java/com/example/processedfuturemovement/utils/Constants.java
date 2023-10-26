@@ -15,4 +15,6 @@ public class Constants {
     public static final String EXPIRATION_DATE = "expirationDate";
     public static final String QUANTITY_LONG = "quantityLong";
     public static final String QUANTITY_SHORT = "quantityShort";
+    public static final String[] CSV_HEADERS = {"CLIENT TYPE", "CLIENT NUMBER", "ACCOUNT NUMBER", "SUBACCOUNT NUMBER", "EXCHANGE CODE", "PRODUCT GROUP CODE", "SYMBOL", "EXPIRATION DATE", "TOTAL TRANSACTION AMOUNT"};
+
 }
