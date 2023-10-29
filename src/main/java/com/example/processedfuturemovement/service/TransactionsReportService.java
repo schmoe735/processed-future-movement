@@ -1,8 +1,8 @@
 package com.example.processedfuturemovement.service;
 
-import java.io.ByteArrayInputStream;
+import java.util.List;
 
 public interface TransactionsReportService {
 
-    ByteArrayInputStream generateReport(String clientNumber) ;
+    List<List<String>> generateDailySummaryData(String clientNumber) ;
 }

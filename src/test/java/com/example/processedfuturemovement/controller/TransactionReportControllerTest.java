@@ -20,7 +20,7 @@ public class TransactionReportControllerTest {
     private MockMvc mockMvc;
     @Test
     void shouldReturnDownloadCSVForClientId() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(get("/api/v1/report/daily-summary/1234"))
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/v1/report/daily-summary/1234?output=csv"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/csv"))
                 .andReturn();

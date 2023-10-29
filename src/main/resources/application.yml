@@ -1,4 +1,4 @@
-inputfile: D:/dev/processed-future-movement/data/Input.txt
+inputfile: Input.txt
 
 transactions-file:
   indexes:
